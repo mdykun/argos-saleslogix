@@ -17,6 +17,25 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
             context: {}
         });
     },
+    init: function() {
+        Mobile.SalesLogix.Application.superclass.init.call(this);
+        
+        if (App.isOnline() || !App.enableCaching)
+        {
+            var user = App.getService().getUserName();
+            if (!user || !user.length)
+            {
+                var view = App.getView('login_view');
+                
+                console.log(view)
+                if (view) {
+                    ReUI.show("login_view", {tracking: false});
+                }
+            }
+                //ReUI.show("login_dialog");
+        }
+        //ReUI.show("home");
+    },
     setup: function () {
         Mobile.SalesLogix.Application.superclass.setup.apply(this, arguments);
        
@@ -28,8 +47,8 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
         this.registerToolbar(new Sage.Platform.Mobile.FloatToolbar({
             name: 'fbar'
         }));
-
-        this.registerView(new Mobile.SalesLogix.LoginDialog());
+        this.registerView(new Mobile.SalesLogix.Login());
+        //this.registerView(new Mobile.SalesLogix.LoginDialog());
         this.registerView(new Mobile.SalesLogix.SearchDialog());
         this.registerView(new Mobile.SalesLogix.Home());
 

@@ -23,8 +23,7 @@ Mobile.SalesLogix.Home = Ext.extend(Sage.Platform.Mobile.View, {
 
         Ext.apply(this, o, {
             id: 'home',
-            title: this.titleText,
-            selected: true
+            title: this.titleText
         });
     },
     render: function() {
@@ -64,20 +63,5 @@ Mobile.SalesLogix.Home = Ext.extend(Sage.Platform.Mobile.View, {
     },
     viewRegistered: function(view) {
         Ext.DomHelper.append(this.el, this.itemTemplate.apply(view));
-    },
-    load: function() {
-        Mobile.SalesLogix.Home.superclass.load.call(this);
-
-        if (App.isOnline() || !App.enableCaching)
-        {
-            var user = App.getService().getUserName();
-            if (!user || !user.length)
-            {
-                var view = App.getView('login_dialog');
-                if (view)
-                    view.show();
-            }
-                //ReUI.show("login_dialog");
-        }
     }
 });
